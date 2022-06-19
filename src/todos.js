@@ -3,6 +3,7 @@ import { Task } from './task.js';
 
 const todos = () => {
     let allProjects = [];
+    let activeProject = 0;
 
     const init = () => {
         console.log('init');
@@ -20,12 +21,21 @@ const todos = () => {
     };
     const getAllProjects = () => {
         return allProjects;
-    }
+    };
+    const addTask = (title, desc, date) => {
+        allProjects[activeProject].addTask([title, desc, date]);
+    };
+    const delTask = (id) => {
+        allProjects[activeProject].deleteTask(id);
+    };
+    const getActiveTasks = () => {
+        return allProjects[activeProject].tasks;
+    };
 
     init();
 
     return {
-        addProject, getProjectTitles, delProject, getAllProjects,
+        addProject, getProjectTitles, delProject, getAllProjects, addTask, delTask, getActiveTasks
     };
 };
 

@@ -5,17 +5,29 @@ import { editDOM } from './editDOM.js';
 const addBtn = document.querySelector('.add');
 const delBtn = document.querySelector('.del');
 
+const taskContainer = document.querySelector('.tasks');
+const taskTitle = document.getElementById('task-name');
+const taskDesc = document.getElementById('task-desc');
+const taskDate = document.getElementById('task-date');
+
 const addTask = () => {
-    const myTask = new Task('newtask');
-    myProjects.addTask(myTask);
-    console.log(myProjects);
+    myTodos.addTask(taskTitle.value, taskDesc.value, taskDate.value);
+    // myTodos.addTask('toptiel', 'gonna go downtown', '07/67/78');
+    console.log(myTodos.getActiveTasks());
+    display.renderTasks(myTodos.getActiveTasks());
 };
 
-const delTask = () => {
-    myProjects.deleteTask(0);
-    console.log(myProjects);
+const delTask = (e) => {
+    if(e.target.classList.contains('del')) {
+        console.log('deleting task');
+        const task = e.target.parentElement;
+        const index = [...taskContainer.children].indexOf(task);
+        myTodos.delTask(index);
+        display.renderTasks(myTodos.getActiveTasks());
+    }
 };
 
+taskContainer.addEventListener('click', delTask);
 addBtn.addEventListener('click', addTask);
 delBtn.addEventListener('click', delTask);
 
@@ -48,3 +60,7 @@ const display = editDOM();
 console.log(myTodos.getAllProjects());
 console.log(myTodos.getProjectTitles());
 display.render(myTodos.getProjectTitles());
+
+myTodos.addTask('toptiel', 'gonna go downtown', '07/67/78');
+myTodos.addTask('toptiel2', 'gonna go uptown', '07/67/98');
+display.renderTasks(myTodos.getActiveTasks());

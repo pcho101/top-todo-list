@@ -110,13 +110,23 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 
 /***/ }),
 
+/***/ "./src/editDOM.js":
+/*!************************!*\
+  !*** ./src/editDOM.js ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"editDOM\": () => (/* binding */ editDOM)\n/* harmony export */ });\nconst editDOM = () => {\n    const render = (projectTitles) => {\n        const projContainer = document.querySelector('.projects');\n        while(projContainer.hasChildNodes()) {\n            projContainer.removeChild(projContainer.firstChild)\n        }\n        \n        for(let i = 0; i < projectTitles.length; i++) {\n            const div = document.createElement('div');\n            const btn = document.createElement('button');\n            const activeBtn = document.createElement('button');\n            \n            div.textContent = projectTitles[i];\n            btn.textContent = 'x';\n            btn.classList.add('del');\n            activeBtn.textContent = 'Y';\n    \n            div.appendChild(btn);\n            div.appendChild(activeBtn);\n            projContainer.appendChild(div);\n        }\n    };\n    return {\n        render,\n    }\n};\n\n\n\n//# sourceURL=webpack://top-todo-list/./src/editDOM.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _projects_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./projects.js */ \"./src/projects.js\");\n/* harmony import */ var _task_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./task.js */ \"./src/task.js\");\n\n\n\n\nconst addBtn = document.querySelector('.add');\nconst delBtn = document.querySelector('.del');\n\nconst addTask = () => {\n    const myTask = new _task_js__WEBPACK_IMPORTED_MODULE_2__.Task('newtask');\n    myProjects.addTask(myTask);\n    console.log(myProjects);\n};\n\nconst delTask = () => {\n    myProjects.deleteTask(0);\n    console.log(myProjects);\n};\n\naddBtn.addEventListener('click', addTask);\ndelBtn.addEventListener('click', delTask);\n\nconst myProjects = new _projects_js__WEBPACK_IMPORTED_MODULE_1__.Project('Project 1');\nconst myTask1 = new _task_js__WEBPACK_IMPORTED_MODULE_2__.Task('myTask1');\n\nmyTask1.setNotes('My first notes');\nmyProjects.setTitle('44');\nmyProjects.addTask(myTask1);\n\nconsole.log(myProjects);\n\n//# sourceURL=webpack://top-todo-list/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _todos_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./todos.js */ \"./src/todos.js\");\n/* harmony import */ var _editDOM_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./editDOM.js */ \"./src/editDOM.js\");\n\n\n\n\nconst addBtn = document.querySelector('.add');\nconst delBtn = document.querySelector('.del');\n\nconst addTask = () => {\n    const myTask = new Task('newtask');\n    myProjects.addTask(myTask);\n    console.log(myProjects);\n};\n\nconst delTask = () => {\n    myProjects.deleteTask(0);\n    console.log(myProjects);\n};\n\naddBtn.addEventListener('click', addTask);\ndelBtn.addEventListener('click', delTask);\n\nconst addProjBtn = document.querySelector('.add-proj');\nconst delProjBtn = document.querySelector('.del-proj');\nconst projContainer = document.querySelector('.projects');\nconst projectInput = document.getElementById('project-name');\n\nconst addProj = () => {\n    console.log('adding proj');\n    myTodos.addProject(projectInput.value);\n    display.render(myTodos.getProjectTitles());\n};\n\nconst delProj = (e) => {\n    if(e.target.classList.contains('del')) {\n        console.log('deleting proj');\n        const project = e.target.parentElement;\n        const index = [...projContainer.children].indexOf(project);\n        myTodos.delProject(index);\n        display.render(myTodos.getProjectTitles());\n    }\n};\n\naddProjBtn.addEventListener('click', addProj);\nprojContainer.addEventListener('click', delProj);\n\nconst myTodos = (0,_todos_js__WEBPACK_IMPORTED_MODULE_1__.todos)();\nconst display = (0,_editDOM_js__WEBPACK_IMPORTED_MODULE_2__.editDOM)();\n\nconsole.log(myTodos.getAllProjects());\nconsole.log(myTodos.getProjectTitles());\ndisplay.render(myTodos.getProjectTitles());\n\n\n\n\n//# sourceURL=webpack://top-todo-list/./src/index.js?");
 
 /***/ }),
 
@@ -137,6 +147,16 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"Task\": () => (/* binding */ Task)\n/* harmony export */ });\nclass Task {\n    constructor(title, description, dueDate, priority, notes, checklist) {\n        this.title = title;\n        this.description = description;\n        this.dueDate = dueDate;\n        this.priority = priority;\n        this.notes = notes;\n        this.checklist = checklist;\n    }\n    setTitle(newTitle) {\n        this.title = newTitle;\n    }\n    getTitle() {\n        return this.title;\n    }\n    setDescription(newDescription) {\n        this.description = newDescription;\n    }\n    getDescription() {\n        return this.description;\n    }\n    setdueDate(newdueDate) {\n        this.dueDate = newdueDate;\n    }\n    getdueDate() {\n        return this.dueDate;\n    }\n    setPriority(newPriority) {\n        this.priority = newPriority;\n    }\n    getPriority() {\n        return this.priority;\n    }\n    setNotes(newNotes) {\n        this.notes = newNotes;\n    }\n    getNotes() {\n        return this.notes;\n    }\n    setChecklist(newChecklist) {\n        this.checklist = newChecklist;\n    }\n    getChecklist() {\n        return this.checklist;\n    }\n};\n\n\n\n//# sourceURL=webpack://top-todo-list/./src/task.js?");
+
+/***/ }),
+
+/***/ "./src/todos.js":
+/*!**********************!*\
+  !*** ./src/todos.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"todos\": () => (/* binding */ todos)\n/* harmony export */ });\n/* harmony import */ var _projects_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./projects.js */ \"./src/projects.js\");\n/* harmony import */ var _task_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./task.js */ \"./src/task.js\");\n\n\n\nconst todos = () => {\n    let allProjects = [];\n\n    const init = () => {\n        console.log('init');\n        addProject('The default project');\n        addProject('The 2nd project');\n    };\n    const addProject = (title) => {\n        allProjects.push(new _projects_js__WEBPACK_IMPORTED_MODULE_0__.Project(title));\n    };\n    const getProjectTitles = () => {\n        return allProjects.map((proj) => (proj.getTitle()));\n    };\n    const delProject = (id) => {\n        allProjects.splice(id, 1);\n    };\n    const getAllProjects = () => {\n        return allProjects;\n    }\n\n    init();\n\n    return {\n        addProject, getProjectTitles, delProject, getAllProjects,\n    };\n};\n\n\n\n//# sourceURL=webpack://top-todo-list/./src/todos.js?");
 
 /***/ })
 

@@ -1,6 +1,6 @@
 import './style.css';
-import { Project } from './projects.js';
-import { Task } from './task.js';
+import { todos } from './todos.js';
+import { editDOM } from './editDOM.js';
 
 const addBtn = document.querySelector('.add');
 const delBtn = document.querySelector('.del');
@@ -19,11 +19,32 @@ const delTask = () => {
 addBtn.addEventListener('click', addTask);
 delBtn.addEventListener('click', delTask);
 
-const myProjects = new Project('Project 1');
-const myTask1 = new Task('myTask1');
+const addProjBtn = document.querySelector('.add-proj');
+const projContainer = document.querySelector('.projects');
+const projectInput = document.getElementById('project-name');
 
-myTask1.setNotes('My first notes');
-myProjects.setTitle('44');
-myProjects.addTask(myTask1);
+const addProj = () => {
+    console.log('adding proj');
+    myTodos.addProject(projectInput.value);
+    display.render(myTodos.getProjectTitles());
+};
 
-console.log(myProjects);
+const delProj = (e) => {
+    if(e.target.classList.contains('del')) {
+        console.log('deleting proj');
+        const project = e.target.parentElement;
+        const index = [...projContainer.children].indexOf(project);
+        myTodos.delProject(index);
+        display.render(myTodos.getProjectTitles());
+    }
+};
+
+addProjBtn.addEventListener('click', addProj);
+projContainer.addEventListener('click', delProj);
+
+const myTodos = todos();
+const display = editDOM();
+
+console.log(myTodos.getAllProjects());
+console.log(myTodos.getProjectTitles());
+display.render(myTodos.getProjectTitles());

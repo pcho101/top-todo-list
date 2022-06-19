@@ -38,7 +38,7 @@ const projectInput = document.getElementById('project-name');
 const addProj = () => {
     console.log('adding proj');
     myTodos.addProject(projectInput.value);
-    display.render(myTodos.getProjectTitles());
+    display.render(myTodos.getProjectTitles(), myTodos.getActiveid());
 };
 
 const delProj = (e) => {
@@ -46,20 +46,41 @@ const delProj = (e) => {
         console.log('deleting proj');
         const project = e.target.parentElement;
         const index = [...projContainer.children].indexOf(project);
+        const updateTasks = myTodos.getActiveid() == index;
+
         myTodos.delProject(index);
-        display.render(myTodos.getProjectTitles());
+        display.render(myTodos.getProjectTitles(), myTodos.getActiveid())
+        if(updateTasks) {
+            display.renderTasks(myTodos.getActiveTasks());
+        };
     }
 };
 
 addProjBtn.addEventListener('click', addProj);
 projContainer.addEventListener('click', delProj);
 
+
+const changeProject = (e) => {
+    if(e.target.classList.contains('project-item')) {
+        console.log('selecting active proj');
+        const project = e.target;
+        const index = [...projContainer.children].indexOf(project);
+        const prevIndex = myTodos.getActiveid();
+        
+        myTodos.setActive(index);
+        display.setActiveProject(prevIndex, index);
+        display.renderTasks(myTodos.getActiveTasks());
+    }
+}
+
+projContainer.addEventListener('click', changeProject);
+
 const myTodos = todos();
 const display = editDOM();
 
 console.log(myTodos.getAllProjects());
 console.log(myTodos.getProjectTitles());
-display.render(myTodos.getProjectTitles());
+display.render(myTodos.getProjectTitles(), myTodos.getActiveid());
 
 myTodos.addTask('toptiel', 'gonna go downtown', '07/67/78');
 myTodos.addTask('toptiel2', 'gonna go uptown', '07/67/98');

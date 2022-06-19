@@ -1,5 +1,5 @@
 const editDOM = () => {
-    const render = (projectTitles) => {
+    const render = (projectTitles, activeProject) => {
         const projContainer = document.querySelector('.projects');
         while(projContainer.hasChildNodes()) {
             projContainer.removeChild(projContainer.firstChild)
@@ -10,6 +10,10 @@ const editDOM = () => {
             const btn = document.createElement('button');
             const activeBtn = document.createElement('button');
             
+            div.classList.add('project-item');
+            if(i === activeProject) {
+                div.classList.add('active');
+            }
             div.textContent = projectTitles[i];
             btn.textContent = 'x';
             btn.classList.add('del');
@@ -33,6 +37,8 @@ const editDOM = () => {
             const btn = document.createElement('button');
             const infoBtn = document.createElement('button');
             
+            div.classList.add('task-item');
+
             div.textContent = taskValues[i];
             btn.textContent = 'x';
             btn.classList.add('del');
@@ -43,8 +49,13 @@ const editDOM = () => {
             taskContainer.appendChild(div);
         }
     };
+    const setActiveProject = (prev, cur) => {
+        const projContainer = document.querySelector('.projects');
+        projContainer.children[prev].classList.toggle('active');
+        projContainer.children[cur].classList.toggle('active');
+    };
     return {
-        render, renderTasks,
+        render, renderTasks, setActiveProject,
     }
 };
 

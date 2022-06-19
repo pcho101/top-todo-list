@@ -1,3 +1,23 @@
 * {
     color: red;
 }
+
+.projects {
+    border: 2px solid black;
+}
+
+.project-item {
+    border: 1px dotted green;
+}
+
+.active {
+    font-weight: bold;
+}
+
+.tasks {
+    border: 2px dashed blue;
+}
+
+.task-item {
+    border: 1px double pink;
+}

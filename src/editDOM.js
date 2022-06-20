@@ -8,7 +8,7 @@ const editDOM = () => {
         for(let i = 0; i < projectTitles.length; i++) {
             const div = document.createElement('div');
             const btn = document.createElement('button');
-            const activeBtn = document.createElement('button');
+            const editBtn = document.createElement('button');
             
             div.classList.add('project-item');
             if(i === activeProject) {
@@ -17,16 +17,15 @@ const editDOM = () => {
             div.textContent = projectTitles[i];
             btn.textContent = 'x';
             btn.classList.add('del');
-            activeBtn.textContent = 'Y';
+            editBtn.classList.add('edit-proj');
+            editBtn.textContent = 'E';
     
             div.appendChild(btn);
-            div.appendChild(activeBtn);
+            div.appendChild(editBtn);
             projContainer.appendChild(div);
         }
     };
     const renderTasks = (taskValues) => {
-        console.log('task rendinger');
-        console.log(taskValues);
         const taskContainer = document.querySelector('.tasks');
         while(taskContainer.hasChildNodes()) {
             taskContainer.removeChild(taskContainer.firstChild)
@@ -35,17 +34,30 @@ const editDOM = () => {
         for(let i = 0; i < taskValues.length; i++) {
             const div = document.createElement('div');
             const btn = document.createElement('button');
-            const infoBtn = document.createElement('button');
+            const editBtn = document.createElement('button');
+            const titleDiv = document.createElement('div');
+            const descDiv = document.createElement('div');
+            const dateDiv = document.createElement('div');
+            const check = document.createElement('input');
             
+            check.setAttribute('type', 'checkbox');
             div.classList.add('task-item');
 
-            div.textContent = taskValues[i];
+            titleDiv.textContent = taskValues[i].getTitle();
+            descDiv.textContent = taskValues[i].getDescription();
+            dateDiv.textContent = taskValues[i].getDueDate();
+
             btn.textContent = 'x';
             btn.classList.add('del');
-            infoBtn.textContent = 'i';
-    
+            editBtn.classList.add('edit-task');
+            editBtn.textContent = 'E';
+
+            div.appendChild(check);
+            div.appendChild(titleDiv);
+            div.appendChild(descDiv);
+            div.appendChild(dateDiv);
             div.appendChild(btn);
-            div.appendChild(infoBtn);
+            div.appendChild(editBtn);
             taskContainer.appendChild(div);
         }
     };

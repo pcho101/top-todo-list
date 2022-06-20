@@ -16,6 +16,9 @@ const todos = () => {
     const getProjectTitles = () => {
         return allProjects.map((proj) => (proj.getTitle()));
     };
+    const setProjectTitle = (index, title) => {
+        allProjects[index].setTitle(title);
+    };
     const delProject = (id) => {
         allProjects.splice(id, 1);
         if(id == activeProject) {
@@ -32,8 +35,14 @@ const todos = () => {
     };
     const addTask = (title, desc, date) => {
         if(allProjects.length > 0) {
-            allProjects[activeProject].addTask([title, desc, date])
+            allProjects[activeProject].addTask(new Task(title, desc, date))
         };
+    };
+    const editTask = (id, title, desc, date) => {
+        const task = allProjects[activeProject].tasks[id];
+        task.setTitle(title);
+        task.setDescription(desc);
+        task.setDueDate(date);
     };
     const delTask = (id) => {
         allProjects[activeProject].deleteTask(id);
@@ -51,7 +60,8 @@ const todos = () => {
     init();
 
     return {
-        addProject, getProjectTitles, delProject, getAllProjects, addTask, delTask, getActiveTasks, getActiveid, setActive,
+        addProject, getProjectTitles, setProjectTitle, delProject, getAllProjects, 
+        addTask, editTask, delTask, getActiveTasks, getActiveid, setActive,
     };
 };
 

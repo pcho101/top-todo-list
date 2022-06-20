@@ -19,10 +19,10 @@ class Task {
     getDescription() {
         return this.description;
     }
-    setdueDate(newdueDate) {
+    setDueDate(newdueDate) {
         this.dueDate = newdueDate;
     }
-    getdueDate() {
+    getDueDate() {
         return this.dueDate;
     }
     setPriority(newPriority) {

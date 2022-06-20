@@ -27,6 +27,18 @@ const delTask = (e) => {
     }
 };
 
+const editTaskInfo = (e) => {
+    if(e.target.classList.contains('edit-task')) {
+        console.log('edit task info');
+        const task = e.target.parentElement;
+        const index = [...taskContainer.children].indexOf(task);
+        
+        myTodos.editTask(index, taskTitle.value, taskDesc.value, taskDate.value);
+        display.renderTasks(myTodos.getActiveTasks());
+    }
+}
+
+taskContainer.addEventListener('click', editTaskInfo);
 taskContainer.addEventListener('click', delTask);
 addBtn.addEventListener('click', addTask);
 delBtn.addEventListener('click', delTask);
@@ -74,6 +86,20 @@ const changeProject = (e) => {
 }
 
 projContainer.addEventListener('click', changeProject);
+
+const editProjectName = (e) => {
+    if(e.target.classList.contains('edit-proj')) {
+        console.log('edit project name');
+        const project = e.target.parentElement;
+        const index = [...projContainer.children].indexOf(project);
+
+        myTodos.setProjectTitle(index, projectInput.value);
+        display.render(myTodos.getProjectTitles(), myTodos.getActiveid())
+    }
+}
+
+projContainer.addEventListener('click', editProjectName);
+
 
 const myTodos = todos();
 const display = editDOM();

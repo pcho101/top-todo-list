@@ -21,3 +21,11 @@
 .task-item {
     border: 1px double pink;
 }
+
+.default-container {
+    border: 2px double grey;
+}
+
+.default-container>div {
+    border: 1px dotted green;
+}

@@ -50,6 +50,13 @@ const todos = () => {
     const getActiveTasks = () => {
         return allProjects.length !== 0 ? allProjects[activeProject].tasks : [];
     };
+    const getAllTasks = () => {
+        let allTasks= []
+        allProjects.forEach((proj) => {
+            allTasks.push(proj.tasks);
+        })
+        return allTasks.flat()
+    }
     const getActiveid = () => {
         return activeProject;
     }
@@ -61,7 +68,7 @@ const todos = () => {
 
     return {
         addProject, getProjectTitles, setProjectTitle, delProject, getAllProjects, 
-        addTask, editTask, delTask, getActiveTasks, getActiveid, setActive,
+        addTask, editTask, delTask, getActiveTasks, getAllTasks, getActiveid, setActive,
     };
 };
 

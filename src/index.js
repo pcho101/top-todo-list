@@ -77,10 +77,9 @@ const changeProject = (e) => {
         console.log('selecting active proj');
         const project = e.target;
         const index = [...projContainer.children].indexOf(project);
-        const prevIndex = myTodos.getActiveid();
         
         myTodos.setActive(index);
-        display.setActiveProject(prevIndex, index);
+        display.setActiveProject(project);
         display.renderTasks(myTodos.getActiveTasks());
     }
 }
@@ -100,6 +99,30 @@ const editProjectName = (e) => {
 
 projContainer.addEventListener('click', editProjectName);
 
+const selectInbox = (e) => {
+    let myTasks = myTodos.getAllTasks();
+    const project = e.target;
+    if(project.classList.contains('all')) {
+        console.log('selecting all');
+        display.setActiveProject(project);
+        display.renderTasks(myTasks);
+    }
+    else if(project.classList.contains('today')) {
+        console.log('selecting today');
+        myTasks = myTasks.filter((task) => task.getDueDate() === "2022-06-20");
+        display.setActiveProject(project);
+        display.renderTasks(myTasks);
+    }
+    else if(project.classList.contains('week')) {
+        console.log('selecting week');
+        myTasks = myTasks.filter((task) => task.getDueDate() >= "2022-06-23" && task.getDueDate() <= "2022-06-27");
+        display.setActiveProject(project);
+        display.renderTasks(myTasks);
+    }
+}
+
+const defaultContainer = document.querySelector('.default-container');
+defaultContainer.addEventListener('click', selectInbox);
 
 const myTodos = todos();
 const display = editDOM();
@@ -108,6 +131,6 @@ console.log(myTodos.getAllProjects());
 console.log(myTodos.getProjectTitles());
 display.render(myTodos.getProjectTitles(), myTodos.getActiveid());
 
-myTodos.addTask('toptiel', 'gonna go downtown', '07/67/78');
-myTodos.addTask('toptiel2', 'gonna go uptown', '07/67/98');
+myTodos.addTask('Hike', 'Forest Trail at 9am', '2022-06-20');
+myTodos.addTask('Badminton', 'Rec Center at 4pm', '2022-06-24');
 display.renderTasks(myTodos.getActiveTasks());

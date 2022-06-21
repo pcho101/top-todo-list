@@ -61,10 +61,19 @@ const editDOM = () => {
             taskContainer.appendChild(div);
         }
     };
-    const setActiveProject = (prev, cur) => {
-        const projContainer = document.querySelector('.projects');
-        projContainer.children[prev].classList.toggle('active');
-        projContainer.children[cur].classList.toggle('active');
+    const setActiveProject = (node) => {
+        clearActiveClass();
+        node.classList.add('active');
+    };
+    const clearActiveClass = () => {
+        const allProjects = document.querySelectorAll('.project-item');
+        const allDefaultProjects = document.querySelectorAll('.default-project');
+        allProjects.forEach((node) => {
+            node.classList.remove('active');
+        });
+        allDefaultProjects.forEach((node) => {
+            node.classList.remove('active');
+        });
     };
     return {
         render, renderTasks, setActiveProject,

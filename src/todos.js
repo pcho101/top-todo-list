@@ -4,6 +4,7 @@ import { Task } from './task.js';
 const todos = () => {
     let allProjects = [];
     let activeProject = 0;
+    let taskid = 0;
 
     const init = () => {
         console.log('init');
@@ -21,11 +22,9 @@ const todos = () => {
     };
     const delProject = (id) => {
         allProjects.splice(id, 1);
-        if(id == activeProject) {
-            if(id > 0) {
-                activeProject--;
-            }
-            else {
+        if(id <= activeProject) {
+            activeProject--;
+            if(activeProject < 0) {
                 activeProject = 0;
             }
         }
@@ -35,27 +34,27 @@ const todos = () => {
     };
     const addTask = (title, desc, date) => {
         if(allProjects.length > 0) {
-            allProjects[activeProject].addTask(new Task(title, desc, date))
+            allProjects[activeProject].addTask(new Task(taskid, title, desc, date))
+            taskid++;
         };
     };
     const editTask = (id, title, desc, date) => {
-        const task = allProjects[activeProject].tasks[id];
+        const projectIndex = findProjIndexOfTask(id);
+        const taskIndex = findTaskIndexOfTask(id);
+        const task = allProjects[projectIndex].tasks[taskIndex];
         task.setTitle(title);
         task.setDescription(desc);
         task.setDueDate(date);
     };
     const delTask = (id) => {
-        allProjects[activeProject].deleteTask(id);
+        const projectIndex = findProjIndexOfTask(id);
+        allProjects[projectIndex].deleteTask(id);
     };
     const getActiveTasks = () => {
         return allProjects.length !== 0 ? allProjects[activeProject].tasks : [];
     };
     const getAllTasks = () => {
-        let allTasks= []
-        allProjects.forEach((proj) => {
-            allTasks.push(proj.tasks);
-        })
-        return allTasks.flat()
+        return allProjects.map(proj => proj.tasks).flat();
     }
     const getActiveid = () => {
         return activeProject;
@@ -63,7 +62,13 @@ const todos = () => {
     const setActive = (id) => {
         activeProject = id;
     };
-
+    
+    const findProjIndexOfTask = (id) => {
+        return allProjects.findIndex(proj => proj.tasks.some(task => task.getid() == id));
+    }
+    const findTaskIndexOfTask = (id) => {
+        return allProjects[findProjIndexOfTask(id)].tasks.findIndex(task => task.getid() == id);
+    }
     init();
 
     return {

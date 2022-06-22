@@ -12,6 +12,7 @@
 
 .active {
     font-weight: bold;
+    background-color: lightgreen;
 }
 
 .tasks {

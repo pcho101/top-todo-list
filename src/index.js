@@ -21,8 +21,10 @@ const delTask = (e) => {
     if(e.target.classList.contains('del')) {
         console.log('deleting task');
         const task = e.target.parentElement;
-        const index = [...taskContainer.children].indexOf(task);
-        myTodos.delTask(index);
+        const taskNum = task.id.slice(5);
+        // const index = [...taskContainer.children].indexOf(task);
+        // myTodos.delTask(index);
+        myTodos.delTask(taskNum);
         display.renderTasks(myTodos.getActiveTasks());
     }
 };
@@ -31,9 +33,11 @@ const editTaskInfo = (e) => {
     if(e.target.classList.contains('edit-task')) {
         console.log('edit task info');
         const task = e.target.parentElement;
-        const index = [...taskContainer.children].indexOf(task);
-        
-        myTodos.editTask(index, taskTitle.value, taskDesc.value, taskDate.value);
+        // const index = [...taskContainer.children].indexOf(task);
+
+        const taskNum = task.id.slice(5);
+        myTodos.editTask(taskNum, taskTitle.value, taskDesc.value, taskDate.value);
+        // myTodos.editTask(index, taskTitle.value, taskDesc.value, taskDate.value);
         display.renderTasks(myTodos.getActiveTasks());
     }
 }

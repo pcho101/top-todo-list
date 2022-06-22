@@ -13,7 +13,8 @@ class Project {
         this.tasks.push(task);
     }
     deleteTask(id) {
-        this.tasks.splice(id, 1);
+        const index = this.tasks.findIndex(task => task.getid() == id)
+        this.tasks.splice(index, 1);
     }
 };
 

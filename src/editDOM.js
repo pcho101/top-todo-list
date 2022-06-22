@@ -4,7 +4,7 @@ const editDOM = () => {
         while(projContainer.hasChildNodes()) {
             projContainer.removeChild(projContainer.firstChild)
         }
-        
+        clearActiveClass();
         for(let i = 0; i < projectTitles.length; i++) {
             const div = document.createElement('div');
             const btn = document.createElement('button');
@@ -43,6 +43,7 @@ const editDOM = () => {
             check.setAttribute('type', 'checkbox');
             div.classList.add('task-item');
 
+            div.id = 'task-' + taskValues[i].getid();
             titleDiv.textContent = taskValues[i].getTitle();
             descDiv.textContent = taskValues[i].getDescription();
             dateDiv.textContent = taskValues[i].getDueDate();

@@ -12,7 +12,6 @@ const taskDate = document.getElementById('task-date');
 
 const addTask = () => {
     myTodos.addTask(taskTitle.value, taskDesc.value, taskDate.value);
-    // myTodos.addTask('toptiel', 'gonna go downtown', '07/67/78');
     console.log(myTodos.getActiveTasks());
     display.renderTasks(myTodos.getActiveTasks());
 };
@@ -22,22 +21,35 @@ const delTask = (e) => {
         console.log('deleting task');
         const task = e.target.parentElement;
         const taskNum = task.id.slice(5);
-        // const index = [...taskContainer.children].indexOf(task);
-        // myTodos.delTask(index);
         myTodos.delTask(taskNum);
-        display.renderTasks(myTodos.getActiveTasks());
+        display.renderTasks(getActiveTab());
     }
 };
+
+const getActiveTab = () => {
+    const activeTab = document.querySelector('.active');
+    if(activeTab == null) return myTodos.getAllTasks();
+    if(activeTab.classList.contains('project-item')) {
+        return myTodos.getActiveTasks();
+    }
+    else if(activeTab.classList.contains('all')) {
+        return myTodos.getAllTasks();
+    }
+    else if(activeTab.classList.contains('today')) {
+        return myTodos.getTodayTasks();
+    }
+    else if(activeTab.classList.contains('week')) {
+        return myTodos.getWeekTasks();
+    }
+}
 
 const editTaskInfo = (e) => {
     if(e.target.classList.contains('edit-task')) {
         console.log('edit task info');
         const task = e.target.parentElement;
-        // const index = [...taskContainer.children].indexOf(task);
 
         const taskNum = task.id.slice(5);
         myTodos.editTask(taskNum, taskTitle.value, taskDesc.value, taskDate.value);
-        // myTodos.editTask(index, taskTitle.value, taskDesc.value, taskDate.value);
         display.renderTasks(myTodos.getActiveTasks());
     }
 }
@@ -62,13 +74,10 @@ const delProj = (e) => {
         console.log('deleting proj');
         const project = e.target.parentElement;
         const index = [...projContainer.children].indexOf(project);
-        const updateTasks = myTodos.getActiveid() == index;
 
         myTodos.delProject(index);
-        display.render(myTodos.getProjectTitles(), myTodos.getActiveid())
-        if(updateTasks) {
-            display.renderTasks(myTodos.getActiveTasks());
-        };
+        display.render(myTodos.getProjectTitles(), myTodos.getActiveid());
+        display.renderTasks(getActiveTab());
     }
 };
 
@@ -104,24 +113,21 @@ const editProjectName = (e) => {
 projContainer.addEventListener('click', editProjectName);
 
 const selectInbox = (e) => {
-    let myTasks = myTodos.getAllTasks();
     const project = e.target;
     if(project.classList.contains('all')) {
         console.log('selecting all');
         display.setActiveProject(project);
-        display.renderTasks(myTasks);
+        display.renderTasks(myTodos.getAllTasks());
     }
     else if(project.classList.contains('today')) {
         console.log('selecting today');
-        myTasks = myTasks.filter((task) => task.getDueDate() === "2022-06-20");
         display.setActiveProject(project);
-        display.renderTasks(myTasks);
+        display.renderTasks(myTodos.getTodayTasks());
     }
     else if(project.classList.contains('week')) {
         console.log('selecting week');
-        myTasks = myTasks.filter((task) => task.getDueDate() >= "2022-06-23" && task.getDueDate() <= "2022-06-27");
         display.setActiveProject(project);
-        display.renderTasks(myTasks);
+        display.renderTasks(myTodos.getWeekTasks());
     }
 }
 

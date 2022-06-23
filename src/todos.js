@@ -56,13 +56,19 @@ const todos = () => {
     const getAllTasks = () => {
         return allProjects.map(proj => proj.tasks).flat();
     }
+    const getTodayTasks = () => {
+        return getAllTasks().filter((task) => task.getDueDate() === "2022-06-20");
+    }
+    const getWeekTasks = () => {
+        return getAllTasks().filter((task) => task.getDueDate() >= "2022-06-23" && task.getDueDate() <= "2022-06-27");
+    }
     const getActiveid = () => {
         return activeProject;
     }
     const setActive = (id) => {
         activeProject = id;
     };
-    
+
     const findProjIndexOfTask = (id) => {
         return allProjects.findIndex(proj => proj.tasks.some(task => task.getid() == id));
     }
@@ -73,7 +79,7 @@ const todos = () => {
 
     return {
         addProject, getProjectTitles, setProjectTitle, delProject, getAllProjects, 
-        addTask, editTask, delTask, getActiveTasks, getAllTasks, getActiveid, setActive,
+        addTask, editTask, delTask, getActiveTasks, getAllTasks, getTodayTasks, getWeekTasks, getActiveid, setActive,
     };
 };
 

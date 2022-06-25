@@ -2,12 +2,11 @@ import './style.css';
 import { todos } from './todos.js';
 import { editDOM } from './editDOM.js';
 
-const addBtn = document.querySelector('.add');
-
 const taskContainer = document.querySelector('.tasks');
 const taskTitle = document.getElementById('task-name');
 const taskDesc = document.getElementById('task-desc');
 const taskDate = document.getElementById('task-date');
+const taskid = document.querySelector('.task-id');
 
 const addTask = () => {
     myTodos.addTask(taskTitle.value, taskDesc.value, taskDate.value);
@@ -42,20 +41,32 @@ const getActiveTab = () => {
     }
 }
 
+const editTask = (taskNum) => {
+    myTodos.editTask(taskNum, taskTitle.value, taskDesc.value, taskDate.value);
+    display.renderTasks(getActiveTab());
+};
+
 const editTaskInfo = (e) => {
     if(e.target.classList.contains('edit-task')) {
-        console.log('edit task info');
-        const task = e.target.parentElement;
+        editTaskBtn.style.display = 'inline-block';
+        addTaskBtn.style.display = 'none';
+        modal.style.display = 'block';
 
+        const task = e.target.parentElement;
         const taskNum = task.id.slice(5);
-        myTodos.editTask(taskNum, taskTitle.value, taskDesc.value, taskDate.value);
-        display.renderTasks(myTodos.getActiveTasks());
+
+        taskTitle.value = e.target.parentElement.children[1].textContent;
+        taskDesc.value = e.target.parentElement.children[2].textContent;
+        taskDate.value = e.target.parentElement.children[3].textContent;
+        taskid.textContent = taskNum;
+
+        taskTitle.focus();
+        taskTitle.select();
     }
 }
 
 taskContainer.addEventListener('click', editTaskInfo);
 taskContainer.addEventListener('click', delTask);
-addBtn.addEventListener('click', addTask);
 
 const projAdder = document.querySelector('.add-proj');
 const projContainer = document.querySelector('.projects');
@@ -122,7 +133,7 @@ const editProjectName = (e) => {
         console.log('edit project name');
         const project = e.target.parentElement;
         const index = [...projContainer.children].indexOf(project);
-        
+
         const projectInputText = display.editProjDiv(project);
 
         const projEnter = function(e) {
@@ -164,6 +175,44 @@ const selectInbox = (e) => {
 
 const defaultContainer = document.querySelector('.default-container');
 defaultContainer.addEventListener('click', selectInbox);
+
+const modal = document.querySelector('.task-modal');
+const modalBtn = document.querySelector('.add-task');
+const editTaskBtn = document.querySelector('.make-edit');
+const addTaskBtn = document.querySelector('.make-task');
+const cancelBtn = document.querySelector('.cancel');
+
+modalBtn.addEventListener('click', () => {
+    editTaskBtn.style.display = 'none';
+    addTaskBtn.style.display = 'inline-block';
+    modal.style.display = 'block';
+});
+
+addTaskBtn.addEventListener('click', () => {
+    addTask();
+    taskTitle.value = '';
+    taskDesc.value = '';
+    taskDate.value = '';
+    modal.style.display = 'none';
+});
+
+editTaskBtn.addEventListener('click', () => {
+    editTask(taskid.textContent);
+    taskTitle.value = '';
+    taskDesc.value = '';
+    taskDate.value = '';
+    modal.style.display = 'none';
+});
+
+cancelBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
+
+window.addEventListener('click', (e) => {
+    if(e.target == modal) {
+        modal.style.display = 'none';
+    }
+});
 
 const myTodos = todos();
 const display = editDOM();

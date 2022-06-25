@@ -21,6 +21,7 @@
 
 .task-item {
     border: 1px double pink;
+    display: flex;
 }
 
 .default-container {

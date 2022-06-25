@@ -3,7 +3,6 @@ import { todos } from './todos.js';
 import { editDOM } from './editDOM.js';
 
 const addBtn = document.querySelector('.add');
-const delBtn = document.querySelector('.del');
 
 const taskContainer = document.querySelector('.tasks');
 const taskTitle = document.getElementById('task-name');
@@ -57,15 +56,13 @@ const editTaskInfo = (e) => {
 taskContainer.addEventListener('click', editTaskInfo);
 taskContainer.addEventListener('click', delTask);
 addBtn.addEventListener('click', addTask);
-delBtn.addEventListener('click', delTask);
 
-const addProjBtn = document.querySelector('.add-proj');
+const projAdder = document.querySelector('.add-proj');
 const projContainer = document.querySelector('.projects');
-const projectInput = document.getElementById('project-name');
 
-const addProj = () => {
+const addProj = (projName) => {
     console.log('adding proj');
-    myTodos.addProject(projectInput.value);
+    myTodos.addProject(projName);
     display.render(myTodos.getProjectTitles(), myTodos.getActiveid());
 };
 
@@ -81,9 +78,30 @@ const delProj = (e) => {
     }
 };
 
-addProjBtn.addEventListener('click', addProj);
 projContainer.addEventListener('click', delProj);
 
+const newProjectAdder = () => {
+    console.log('newproj');
+    const projectInputText = display.makeProjDiv();
+
+    const projEnter = function(e) {
+        if(e.key == 'Enter') {
+            this.blur();
+        }
+    }
+    const activateNewProj = function() {
+        if(this.value === '') {
+            projContainer.removeChild(projContainer.lastChild);
+        }
+        else {
+            addProj(this.value);
+        }
+    }
+    projectInputText.addEventListener('keydown', projEnter);
+    projectInputText.addEventListener('blur', activateNewProj);
+};
+
+projAdder.addEventListener('click', newProjectAdder);
 
 const changeProject = (e) => {
     if(e.target.classList.contains('project-item')) {
@@ -104,9 +122,22 @@ const editProjectName = (e) => {
         console.log('edit project name');
         const project = e.target.parentElement;
         const index = [...projContainer.children].indexOf(project);
+        
+        const projectInputText = display.editProjDiv(project);
 
-        myTodos.setProjectTitle(index, projectInput.value);
-        display.render(myTodos.getProjectTitles(), myTodos.getActiveid())
+        const projEnter = function(e) {
+            if(e.key == 'Enter') {
+                this.blur();
+            }
+        }
+        const activateEditProj = function() {
+            if(this.value !== '') {
+                myTodos.setProjectTitle(index, this.value);
+            }
+            display.render(myTodos.getProjectTitles(), myTodos.getActiveid());
+        }
+        projectInputText.addEventListener('keydown', projEnter);
+        projectInputText.addEventListener('blur', activateEditProj);
     }
 }
 

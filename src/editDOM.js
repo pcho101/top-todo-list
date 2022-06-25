@@ -7,6 +7,7 @@ const editDOM = () => {
         clearActiveClass();
         for(let i = 0; i < projectTitles.length; i++) {
             const div = document.createElement('div');
+            const title = document.createElement('div');
             const btn = document.createElement('button');
             const editBtn = document.createElement('button');
             
@@ -14,12 +15,13 @@ const editDOM = () => {
             if(i === activeProject) {
                 div.classList.add('active');
             }
-            div.textContent = projectTitles[i];
+            title.textContent = projectTitles[i];
             btn.textContent = 'x';
             btn.classList.add('del');
             editBtn.classList.add('edit-proj');
             editBtn.textContent = 'E';
     
+            div.appendChild(title);
             div.appendChild(btn);
             div.appendChild(editBtn);
             projContainer.appendChild(div);
@@ -76,8 +78,40 @@ const editDOM = () => {
             node.classList.remove('active');
         });
     };
+    const makeProjDiv = () => {
+        const projContainer = document.querySelector('.projects');
+        const newProjDiv = document.createElement('div');
+        const projectInputText = document.createElement('input');
+    
+        newProjDiv.classList.add('project-div');
+        projectInputText.classList.add('project-text');
+        projectInputText.type = 'text';
+        
+        newProjDiv.appendChild(projectInputText);
+        projContainer.appendChild(newProjDiv);
+        projectInputText.focus();
+        
+        return projectInputText;
+    };
+    const editProjDiv = (curProj) => {
+        const projContainer = document.querySelector('.projects');
+        const newProjDiv = document.createElement('div');
+        const projectInputText = document.createElement('input');
+    
+        newProjDiv.classList.add('project-div');
+        projectInputText.classList.add('project-text');
+        projectInputText.type = 'text';
+        projectInputText.value = curProj.firstChild.textContent;
+        
+        newProjDiv.appendChild(projectInputText);
+        curProj.replaceChild(newProjDiv, curProj.firstChild);
+        projectInputText.focus();
+        projectInputText.select();
+        
+        return projectInputText;
+    };
     return {
-        render, renderTasks, setActiveProject,
+        render, renderTasks, setActiveProject, makeProjDiv, editProjDiv,
     }
 };
 

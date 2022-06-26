@@ -38,7 +38,7 @@ const todos = () => {
             taskid++;
         };
     };
-    const editTask = (id, title, desc, date, priority) => {
+    const editTask = (id, title, desc, date, priority, checked) => {
         if(priority === undefined) priority = '-';
         const projectIndex = findProjIndexOfTask(id);
         const taskIndex = findTaskIndexOfTask(id);
@@ -47,6 +47,7 @@ const todos = () => {
         task.setDescription(desc);
         task.setDueDate(date);
         task.setPriority(priority);
+        if(checked) task.setIsChecked();
     };
     const delTask = (id) => {
         const projectIndex = findProjIndexOfTask(id);

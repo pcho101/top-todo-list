@@ -1,12 +1,12 @@
 class Task {
-    constructor(id, title, description, dueDate, notes, checklist) {
+    constructor(id, title, description, dueDate, notes) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = '-';
+        this.isChecked = false;
         this.notes = notes;
-        this.checklist = checklist;
     }
     getid() {
         return this.id;
@@ -41,11 +41,11 @@ class Task {
     getNotes() {
         return this.notes;
     }
-    setChecklist(newChecklist) {
-        this.checklist = newChecklist;
+    setIsChecked() {
+        this.isChecked ? this.isChecked = false : this.isChecked = true;
     }
-    getChecklist() {
-        return this.checklist;
+    getIsChecked() {
+        return this.isChecked;
     }
 };
 

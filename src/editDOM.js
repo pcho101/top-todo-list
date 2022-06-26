@@ -41,15 +41,33 @@ const editDOM = () => {
             const descDiv = document.createElement('div');
             const dateDiv = document.createElement('div');
             const check = document.createElement('input');
-            const priority = createPriorityDiv(taskValues[i].getPriority());
+            const priorityValue = taskValues[i].getPriority();
+            const priority = createPriorityDiv(priorityValue);
             
             check.setAttribute('type', 'checkbox');
             div.classList.add('task-item');
+            titleDiv.classList.add('task-title');
+            descDiv.classList.add('task-desc');
+            dateDiv.classList.add('task-date');
 
+            if(priorityValue === '-') {
+                div.classList.add('priority-low');
+            }
+            else if(priorityValue === '!') {
+                div.classList.add('priority-med');
+            }
+            else {
+                div.classList.add('priority-high');
+            }
+            taskValues[i].getIsChecked() ? div.classList.add('checked') : div.classList.remove('checked');
+
+            descDiv.style.display = 'none';
             div.id = 'task-' + taskValues[i].getid();
+            
             titleDiv.textContent = taskValues[i].getTitle();
             descDiv.textContent = taskValues[i].getDescription();
             dateDiv.textContent = taskValues[i].getDueDate();
+            check.checked = taskValues[i].getIsChecked();
 
             btn.textContent = 'x';
             btn.classList.add('del');

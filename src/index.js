@@ -234,6 +234,23 @@ const changePriority = (e) => {
 
 taskContainer.addEventListener('click', changePriority);
 
+const toggleCheckBox = (e) => {
+    if(e.target.type === 'checkbox') {
+        const task = e.target.parentElement;
+        const taskNum = task.id.slice(5);
+
+        const priority = task.children[1].children[0].textContent;
+        const title = task.children[2].textContent;
+        const desc = task.children[3].textContent;
+        const date = task.children[4].textContent;
+
+        myTodos.editTask(taskNum, title, desc, date, priority, true);
+        display.renderTasks(getActiveTab());
+    }
+};
+
+taskContainer.addEventListener('click', toggleCheckBox);
+
 const myTodos = todos();
 const display = editDOM();
 

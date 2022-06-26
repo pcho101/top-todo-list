@@ -93,3 +93,41 @@
 .task-id {
     display: none;
 }
+
+.priority {
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    width: 20px;
+}
+
+.priority-drop {
+    font-weight: bolder;
+}
+
+.priority-box {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    z-index: 1;
+    padding: 4px;
+    border: 1px solid rgb(170, 170, 170);
+    border-radius: 8px;
+}
+
+.priority-item {
+    padding: 8px 12px;
+    border: 1px dotted rgb(170, 170, 170);
+}
+
+.priority-box div:hover {
+    background-color: #ddd;
+}
+
+.priority-box div {
+    display: block;
+}
+
+.priority:hover .priority-box {
+    display: flex;
+}

@@ -55,9 +55,9 @@ const editTaskInfo = (e) => {
         const task = e.target.parentElement;
         const taskNum = task.id.slice(5);
 
-        taskTitle.value = e.target.parentElement.children[1].textContent;
-        taskDesc.value = e.target.parentElement.children[2].textContent;
-        taskDate.value = e.target.parentElement.children[3].textContent;
+        taskTitle.value = e.target.parentElement.children[2].textContent;
+        taskDesc.value = e.target.parentElement.children[3].textContent;
+        taskDate.value = e.target.parentElement.children[4].textContent;
         taskid.textContent = taskNum;
 
         taskTitle.focus();
@@ -186,6 +186,9 @@ modalBtn.addEventListener('click', () => {
     editTaskBtn.style.display = 'none';
     addTaskBtn.style.display = 'inline-block';
     modal.style.display = 'block';
+    taskTitle.value = '';
+    taskDesc.value = '';
+    taskDate.value = '';
 });
 
 addTaskBtn.addEventListener('click', () => {
@@ -213,6 +216,23 @@ window.addEventListener('click', (e) => {
         modal.style.display = 'none';
     }
 });
+
+const changePriority = (e) => {
+    if(e.target.classList.contains('priority-item')) {
+        const task = e.target.parentElement.parentElement.parentElement;
+        const priority = e.target.textContent;
+        const taskNum = task.id.slice(5);
+
+        const title = task.children[2].textContent;
+        const desc = task.children[3].textContent;
+        const date = task.children[4].textContent;
+        
+        myTodos.editTask(taskNum, title, desc, date, priority);
+        display.renderTasks(getActiveTab());
+    }
+};
+
+taskContainer.addEventListener('click', changePriority);
 
 const myTodos = todos();
 const display = editDOM();

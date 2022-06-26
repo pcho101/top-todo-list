@@ -38,13 +38,15 @@ const todos = () => {
             taskid++;
         };
     };
-    const editTask = (id, title, desc, date) => {
+    const editTask = (id, title, desc, date, priority) => {
+        if(priority === undefined) priority = '-';
         const projectIndex = findProjIndexOfTask(id);
         const taskIndex = findTaskIndexOfTask(id);
         const task = allProjects[projectIndex].tasks[taskIndex];
         task.setTitle(title);
         task.setDescription(desc);
         task.setDueDate(date);
+        task.setPriority(priority);
     };
     const delTask = (id) => {
         const projectIndex = findProjIndexOfTask(id);

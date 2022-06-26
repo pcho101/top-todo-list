@@ -41,6 +41,7 @@ const editDOM = () => {
             const descDiv = document.createElement('div');
             const dateDiv = document.createElement('div');
             const check = document.createElement('input');
+            const priority = createPriorityDiv(taskValues[i].getPriority());
             
             check.setAttribute('type', 'checkbox');
             div.classList.add('task-item');
@@ -56,6 +57,7 @@ const editDOM = () => {
             editBtn.textContent = 'E';
 
             div.appendChild(check);
+            div.appendChild(priority);
             div.appendChild(titleDiv);
             div.appendChild(descDiv);
             div.appendChild(dateDiv);
@@ -109,6 +111,34 @@ const editDOM = () => {
         projectInputText.select();
         
         return projectInputText;
+    };
+    const createPriorityDiv = (priority) => {
+        const priorityDiv = document.createElement('div');
+        const prioritySign = document.createElement('span');
+        const priorityBox = document.createElement('div');
+        const priority1 = document.createElement('div');
+        const priority2 = document.createElement('div');
+        const priority3 = document.createElement('div');
+
+        prioritySign.textContent = priority;
+        priority1.textContent = '-';
+        priority2.textContent = '!';
+        priority3.textContent = '!!';
+
+        priorityDiv.classList.add('priority');
+        priorityBox.classList.add('priority-box');
+        prioritySign.classList.add('priority-drop');
+        priority1.classList.add('priority-item');
+        priority2.classList.add('priority-item');
+        priority3.classList.add('priority-item');
+
+        priorityBox.appendChild(priority1);
+        priorityBox.appendChild(priority2);
+        priorityBox.appendChild(priority3);
+        priorityDiv.appendChild(prioritySign);
+        priorityDiv.appendChild(priorityBox);
+
+        return priorityDiv;
     };
     return {
         render, renderTasks, setActiveProject, makeProjDiv, editProjDiv,

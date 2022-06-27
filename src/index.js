@@ -124,6 +124,15 @@ const changeProject = (e) => {
         display.setActiveProject(project);
         display.renderTasks(myTodos.getActiveTasks());
     }
+    else if(e.target.classList.contains('project-title')) {
+        console.log('selecting active proj');
+        const project = e.target.parentElement;
+        const index = [...projContainer.children].indexOf(project);
+        
+        myTodos.setActive(index);
+        display.setActiveProject(project);
+        display.renderTasks(myTodos.getActiveTasks());
+    }
 }
 
 projContainer.addEventListener('click', changeProject);
@@ -155,7 +164,7 @@ const editProjectName = (e) => {
 projContainer.addEventListener('click', editProjectName);
 
 const selectInbox = (e) => {
-    const project = e.target;
+    const project = e.target.closest('div');
     if(project.classList.contains('all')) {
         console.log('selecting all');
         display.setActiveProject(project);

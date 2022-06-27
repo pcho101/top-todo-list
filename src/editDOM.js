@@ -8,22 +8,25 @@ const editDOM = () => {
         for(let i = 0; i < projectTitles.length; i++) {
             const div = document.createElement('div');
             const title = document.createElement('div');
-            const btn = document.createElement('button');
-            const editBtn = document.createElement('button');
+            const editBtn = document.createElement('span');
+            const delBtn = document.createElement('span');
             
             div.classList.add('project-item');
             if(i === activeProject) {
                 div.classList.add('active');
             }
             title.textContent = projectTitles[i];
-            btn.textContent = 'x';
-            btn.classList.add('del');
+            title.classList.add('project-title');
+            editBtn.classList.add('material-icons');
             editBtn.classList.add('edit-proj');
-            editBtn.textContent = 'E';
-    
+            delBtn.classList.add('material-icons');
+            delBtn.classList.add('del');
+            editBtn.textContent = 'edit_note';
+            delBtn.textContent = 'delete_outline';
+
             div.appendChild(title);
-            div.appendChild(btn);
             div.appendChild(editBtn);
+            div.appendChild(delBtn);
             projContainer.appendChild(div);
         }
     };
@@ -35,8 +38,8 @@ const editDOM = () => {
         
         for(let i = 0; i < taskValues.length; i++) {
             const div = document.createElement('div');
-            const btn = document.createElement('button');
-            const editBtn = document.createElement('button');
+            const editBtn = document.createElement('span');
+            const delBtn = document.createElement('span');
             const titleDiv = document.createElement('div');
             const descDiv = document.createElement('div');
             const dateDiv = document.createElement('div');
@@ -61,7 +64,6 @@ const editDOM = () => {
             }
             taskValues[i].getIsChecked() ? div.classList.add('checked') : div.classList.remove('checked');
 
-            descDiv.style.display = 'none';
             div.id = 'task-' + taskValues[i].getid();
             
             titleDiv.textContent = taskValues[i].getTitle();
@@ -69,18 +71,20 @@ const editDOM = () => {
             dateDiv.textContent = taskValues[i].getDueDate();
             check.checked = taskValues[i].getIsChecked();
 
-            btn.textContent = 'x';
-            btn.classList.add('del');
+            editBtn.classList.add('material-icons');
             editBtn.classList.add('edit-task');
-            editBtn.textContent = 'E';
+            delBtn.classList.add('material-icons');
+            delBtn.classList.add('del');
+            editBtn.textContent = 'edit_note';
+            delBtn.textContent = 'delete_outline';
 
             div.appendChild(check);
             div.appendChild(priority);
             div.appendChild(titleDiv);
             div.appendChild(descDiv);
             div.appendChild(dateDiv);
-            div.appendChild(btn);
             div.appendChild(editBtn);
+            div.appendChild(delBtn);
             taskContainer.appendChild(div);
         }
     };

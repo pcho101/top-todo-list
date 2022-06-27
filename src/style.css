@@ -1,9 +1,22 @@
+.default-project {
+    display: flex;
+}
+
+.default-project>p {
+    margin: 0px;
+}
+
 .projects {
     border: 2px solid black;
 }
 
 .project-item {
     border: 1px dotted green;
+    display: flex;
+}
+
+.edit-proj {
+    margin-left: auto;
 }
 
 .active {
@@ -18,6 +31,8 @@
 .task-item {
     border: 1px double pink;
     display: flex;
+    align-items: center;
+    position: relative;
 }
 
 .checked {
@@ -30,6 +45,10 @@
 }
 
 .checked .priority:hover .priority-box {
+    display: none;
+}
+
+.checked .task-title:hover~.task-desc {
     display: none;
 }
 
@@ -152,4 +171,28 @@
 
 .priority:hover .priority-box {
     display: flex;
+}
+
+.task-desc {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    z-index: 1;
+    padding: 6px 12px;
+    border: 1px solid rgb(170, 170, 170);
+    border-radius: 8px;
+    left: 40px;
+    top: 20px;
+}
+
+.task-title:hover~.task-desc {
+    display: inline-block;
+}
+
+.task-date {
+    margin-left: auto;
+}
+
+.material-icons {
+    cursor: pointer;
 }

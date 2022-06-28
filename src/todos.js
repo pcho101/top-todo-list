@@ -1,16 +1,14 @@
 import { Project } from './projects.js';
 import { Task } from './task.js';
+import { format, addWeeks } from 'date-fns';
 
 const todos = () => {
     let allProjects = [];
     let activeProject = 0;
     let taskid = 0;
+    const today = format(new Date(), 'yyyy-MM-dd');
+    const week = format(addWeeks(new Date(), 1), 'yyyy-MM-dd');
 
-    const init = () => {
-        console.log('init');
-        addProject('The default project');
-        addProject('The 2nd project');
-    };
     const addProject = (title) => {
         allProjects.push(new Project(title));
     };
@@ -32,9 +30,9 @@ const todos = () => {
     const getAllProjects = () => {
         return allProjects;
     };
-    const addTask = (title, desc, date) => {
+    const addTask = (title, desc, date, priority, checked) => {
         if(allProjects.length > 0) {
-            allProjects[activeProject].addTask(new Task(taskid, title, desc, date))
+            allProjects[activeProject].addTask(new Task(taskid, title, desc, date, priority, checked))
             taskid++;
         };
     };
@@ -60,10 +58,10 @@ const todos = () => {
         return allProjects.map(proj => proj.tasks).flat();
     }
     const getTodayTasks = () => {
-        return getAllTasks().filter((task) => task.getDueDate() === "2022-06-20");
+        return getAllTasks().filter((task) => task.getDueDate() === today);
     }
     const getWeekTasks = () => {
-        return getAllTasks().filter((task) => task.getDueDate() >= "2022-06-23" && task.getDueDate() <= "2022-06-27");
+        return getAllTasks().filter((task) => task.getDueDate() >= today && task.getDueDate() <= week);
     }
     const getActiveid = () => {
         return activeProject;
@@ -78,7 +76,6 @@ const todos = () => {
     const findTaskIndexOfTask = (id) => {
         return allProjects[findProjIndexOfTask(id)].tasks.findIndex(task => task.getid() == id);
     }
-    init();
 
     return {
         addProject, getProjectTitles, setProjectTitle, delProject, getAllProjects, 

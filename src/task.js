@@ -1,11 +1,11 @@
 class Task {
-    constructor(id, title, description, dueDate, notes) {
+    constructor(id, title, description, dueDate, priority = '-', isChecked = false, notes) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
-        this.priority = '-';
-        this.isChecked = false;
+        this.priority = priority;
+        this.isChecked = isChecked;
         this.notes = notes;
     }
     getid() {

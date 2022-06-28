@@ -1,6 +1,7 @@
 import './style.css';
 import { todos } from './todos.js';
 import { editDOM } from './editDOM.js';
+import { storage } from './storage.js';
 
 const taskContainer = document.querySelector('.tasks');
 const taskTitle = document.getElementById('task-name');
@@ -11,6 +12,7 @@ const taskid = document.querySelector('.task-id');
 const addTask = () => {
     myTodos.addTask(taskTitle.value, taskDesc.value, taskDate.value);
     console.log(myTodos.getActiveTasks());
+    store.saveToStorage(myTodos);
     display.renderTasks(myTodos.getActiveTasks());
 };
 
@@ -20,6 +22,7 @@ const delTask = (e) => {
         const task = e.target.parentElement;
         const taskNum = task.id.slice(5);
         myTodos.delTask(taskNum);
+        store.saveToStorage(myTodos);
         display.renderTasks(getActiveTab());
     }
 };
@@ -43,6 +46,7 @@ const getActiveTab = () => {
 
 const editTask = (taskNum) => {
     myTodos.editTask(taskNum, taskTitle.value, taskDesc.value, taskDate.value);
+    store.saveToStorage(myTodos);
     display.renderTasks(getActiveTab());
 };
 
@@ -74,6 +78,7 @@ const projContainer = document.querySelector('.projects');
 const addProj = (projName) => {
     console.log('adding proj');
     myTodos.addProject(projName);
+    store.saveToStorage(myTodos);
     display.render(myTodos.getProjectTitles(), myTodos.getActiveid());
 };
 
@@ -84,6 +89,7 @@ const delProj = (e) => {
         const index = [...projContainer.children].indexOf(project);
 
         myTodos.delProject(index);
+        store.saveToStorage(myTodos);
         display.render(myTodos.getProjectTitles(), myTodos.getActiveid());
         display.renderTasks(getActiveTab());
     }
@@ -153,6 +159,7 @@ const editProjectName = (e) => {
         const activateEditProj = function() {
             if(this.value !== '') {
                 myTodos.setProjectTitle(index, this.value);
+                store.saveToStorage(myTodos);
             }
             display.render(myTodos.getProjectTitles(), myTodos.getActiveid());
         }
@@ -237,6 +244,7 @@ const changePriority = (e) => {
         const date = task.children[4].textContent;
         
         myTodos.editTask(taskNum, title, desc, date, priority);
+        store.saveToStorage(myTodos);
         display.renderTasks(getActiveTab());
     }
 };
@@ -254,6 +262,7 @@ const toggleCheckBox = (e) => {
         const date = task.children[4].textContent;
 
         myTodos.editTask(taskNum, title, desc, date, priority, true);
+        store.saveToStorage(myTodos);
         display.renderTasks(getActiveTab());
     }
 };
@@ -262,11 +271,8 @@ taskContainer.addEventListener('click', toggleCheckBox);
 
 const myTodos = todos();
 const display = editDOM();
+const store = storage(myTodos);
 
-console.log(myTodos.getAllProjects());
-console.log(myTodos.getProjectTitles());
+store.init();
 display.render(myTodos.getProjectTitles(), myTodos.getActiveid());
-
-myTodos.addTask('Hike', 'Forest Trail at 9am', '2022-06-20');
-myTodos.addTask('Badminton', 'Rec Center at 4pm', '2022-06-24');
 display.renderTasks(myTodos.getActiveTasks());

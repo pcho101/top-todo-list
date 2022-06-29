@@ -10,9 +10,7 @@
 <body>
     <header>
         <h1>My To Do List</h1>
-    </header>
-    <div class="content">
-        <h2>Default Tab</h2>
+        <h2>Inbox</h2>
         <div class="default-container">
             <div class="default-project all">
                 <span class="material-icons">calendar_today</span>
@@ -27,11 +25,23 @@
                 <p>This Week</p>
             </div>
         </div>
-        <h2>My Projects List</h2>
-        <button class="add-proj">Add New Project</button>
+        <div class="project-header">
+            <h2>My Projects</h2>
+            <button class="add-proj">
+                <span class="material-icons">add</span>
+            </button>
+        </div>
         <div class="projects">
         </div>
-        <h2>My Tasks List</h2>
+    </header>
+    <main>
+        <div class="task-header">
+            <h2 class="current-project">My Tasks</h2>
+            <button class="add-task">
+                <p>Add Task</p>
+                <span class="material-icons">add</span>
+            </button>
+        </div>
         <div class="task-modal">
             <div class="modal-content">
                 <input type="text" name="task-name" id="task-name" placeholder="Title">
@@ -45,12 +55,13 @@
                 <div class="task-id"></div>
             </div>
         </div>
-        <button class="add-task">Add New Task</button>
         <div class="tasks">
         </div>
-    </div>
+    </main>
     <footer>
-        <p>Copyright © 2022 | pcho101</p>
+        <p>Copyright © 2022 | 
+            <a href="https://github.com/pcho101/top-todo-list">pcho101</a>
+        </p>
     </footer>
     <script src="main.js"></script>
 </body>

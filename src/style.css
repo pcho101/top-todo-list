@@ -1,38 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+
+* {
+    font-family: 'PT Sans', sans-serif;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    margin: 0px;
+    min-height: 100vh;
+    width: 100vw;
+}
+
+header {
+    background-color: #fafafa;
+    padding: 12px;
+    min-height: 85vh;
+}
+
+header h1 {
+    margin: 0px;
+    font-weight: bold;
+}
+
+footer {
+    grid-column: 1 / span 2;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: #eeeeee;
+    height: min-content;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: grey;
+}
+
 .default-project {
     display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-left: 8px solid transparent;
+    padding: 4px 0px;
+}
+
+.default-project:hover {
+    background-color: #efefef;
+}
+
+.default-project span {
+    padding: 0px 8px;
 }
 
 .default-project>p {
     margin: 0px;
 }
 
-.projects {
-    border: 2px solid black;
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-proj {
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: #fafafa;
+    padding: 0px;
+}
+
+.add-proj:hover {
+    background-color: #d8d8d8;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+button .material-icons:hover {
+    transform: scale(1);
 }
 
 .project-item {
-    border: 1px dotted green;
+    border-left: 8px solid transparent;
     display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 4px 0px;
+}
+
+.project-item:hover {
+    background-color: #efefef;
+}
+
+.project-title {
+    padding: 0px 4px;
+    overflow: hidden;
+}
+
+.active {
+    font-weight: bold;
+    border-left: 8px solid #888;
+    background-color: #d8d8d8;
+}
+
+.active:hover {
+    font-weight: bold;
+    border-left: 8px solid #888;
+    background-color: #cacaca;
 }
 
 .edit-proj {
     margin-left: auto;
 }
 
-.active {
-    font-weight: bold;
-    background-color: lightgreen;
+main {
+    padding: 0px 48px;
 }
 
-.tasks {
-    border: 2px dashed blue;
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-task {
+    display: flex;
+    align-items: center;
+    padding: 6px 14px;
+    border-radius: 4px;
+    border: 1px solid grey;
+    background-color: #fafafa;
+}
+
+.add-task p {
+    font-weight: bold;
+    margin: 0px;
+}
+
+.add-task:hover {
+    background-color: #d8d8d8;
 }
 
 .task-item {
-    border: 1px double pink;
     display: flex;
     align-items: center;
     position: relative;
+    border-bottom: 1px solid #bdbdbd;
+    padding: 4px 0px;
+}
+
+.task-item:hover {
+    background-color: #efefef;
+}
+
+input[type='checkbox'] {
+    appearance: none;
+    background-color: #fff;
+    width: 1.1em;
+    height: 1.1em;
+    border-radius: 0.15em;
+    border: 0.15em solid black;
+    display: grid;
+    place-content: center;
+}
+
+input[type='checkbox']::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em black;
+    background-color: black;
+    transform-origin: center;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+input[type='checkbox']:checked::before {
+    transform: scale(1);
 }
 
 .checked {
@@ -50,14 +206,6 @@
 
 .checked .task-title:hover~.task-desc {
     display: none;
-}
-
-.default-container {
-    border: 2px double grey;
-}
-
-.default-container>div {
-    border: 1px dotted green;
 }
 
 .task-modal {
@@ -157,7 +305,7 @@
 }
 
 .priority-item {
-    padding: 8px 12px;
+    padding: 6px 10px;
     border: 1px dotted rgb(170, 170, 170);
 }
 
@@ -182,7 +330,7 @@
     border: 1px solid rgb(170, 170, 170);
     border-radius: 8px;
     left: 40px;
-    top: 20px;
+    top: 30px;
 }
 
 .task-title:hover~.task-desc {
@@ -191,8 +339,13 @@
 
 .task-date {
     margin-left: auto;
+    padding: 0px 6px;
 }
 
 .material-icons {
     cursor: pointer;
+}
+
+.material-icons:hover {
+    transform: scale(1.05);
 }

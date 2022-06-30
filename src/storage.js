@@ -17,6 +17,7 @@ const storage = (myTodos) => {
                     myTodos.addTask(taskTitle, taskDesc, taskDate, taskPriority, taskChecked);
                 }
             }
+            myTodos.setActive(0);
         }
     };
     const populateStorage = () => {
